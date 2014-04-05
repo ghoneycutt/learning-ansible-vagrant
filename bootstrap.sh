@@ -3,13 +3,11 @@
 # install some software
 yum -y install facter ansible cowsay
 
-# setup ansible
-echo 127.0.0.1 > /etc/ansible/hosts
+# setup hosts
+echo '192.168.1.10 admin' >> /etc/hosts
+echo '192.168.1.21 node1' >> /etc/hosts
+echo '192.168.1.22 node2' >> /etc/hosts
+echo '192.168.1.23 node3' >> /etc/hosts
 
-# setup keys
-ssh-keygen -b 1024 -N '' -f /root/.ssh/id_rsa -t rsa -q
-cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
-echo "127.0.0.1 $(cat /etc/ssh/ssh_host_rsa_key.pub)" > /root/.ssh/known_hosts
-
-# run a command with ansible
-ansible all -m command -a 'cowsay learning ansible is fun!'
+# setup ssh
+install -d -m 0700 /root/.ssh
